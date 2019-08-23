@@ -1,8 +1,8 @@
 const config = require('../../../config'),
   { url } = config.common.apiAlbums,
-  { getAlbumSources } = require('../../services/albums');
+  { getAlbumAndPhotos } = require('../../services/albums');
 
-const getAlbum = (_, params) => getAlbumSources(`${url}albums/${params.id}`);
+const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums/${params.id}`);
 
 module.exports = {
   Query: {
@@ -10,6 +10,6 @@ module.exports = {
   },
   Album: {
     artist: root => root.userId,
-    photos: root => getAlbumSources(`${url}photos?albumId=${root.id}`)
+    photos: root => getAlbumAndPhotos(`${url}photos?albumId=${root.id}`)
   }
 };
