@@ -9,7 +9,7 @@ module.exports = {
     album: getAlbum
   },
   Album: {
-    artist: root => root.artist,
+    artist: root => root.userId,
     photos: root => getAlbumSources(`${url}photos?albumId=${root.id}`)
   }
 };
