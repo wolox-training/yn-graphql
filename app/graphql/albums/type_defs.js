@@ -2,32 +2,24 @@ const { gql } = require('apollo-server');
 
 const rootTypes = gql`
   extend type Query {
-    album(id: Int): album!
+    album(id: Int): Album!
   }
 `;
 
 const customTypes = gql`
-  type photo {
+  type Photo {
     albumId: Int!
     id: Int!
     title: String!
     url: String!
     thumbnailUrl: String!
   }
-  type album {
+  type Album {
     id: Int!
     title: String!
     artist: Int!
-    photos: [photo]
+    photos: [Photo]
   }
 `;
 
-const inputTypes = gql`
-  input AlbumsInput {
-    artist: Int!
-    id: Int!
-    title: String!
-  }
-`;
-
-exports.typeDefs = [rootTypes, customTypes, inputTypes];
+exports.typeDefs = [rootTypes, customTypes];
