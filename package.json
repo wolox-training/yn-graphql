@@ -65,6 +65,7 @@
     "jwt-simple": "^0.5.1",
     "lodash.merge": "^4.6.2",
     "pg": "^7.4.1",
+    "request-promise": "^4.2.4",
     "rollbar": "^2.3.9",
     "sequelize": "^6.0.0",
     "umzug": "^2.1.0"
