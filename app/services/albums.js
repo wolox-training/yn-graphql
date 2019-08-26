@@ -2,7 +2,7 @@ const request = require('request-promise'),
   logger = require('../logger'),
   errors = require('../errors');
 
-exports.getAlbumsAndPhotos = url => {
+exports.getAlbumAndPhotos = url => {
   const options = {
     uri: url,
     json: true
