@@ -1,14 +1,15 @@
 const config = require('../../../config'),
   { url } = config.common.apiAlbums,
   { getAlbumAndPhotos } = require('../../services/albums'),
-  { orderArrayByField } = require('../../helpers/orderByFields');
+  { orderArrayByField, filterArrayByTitle } = require('../../helpers/arraysFields');
 
 const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums/${params.id}`);
 const getAlbumsList = (_, params) =>
   getAlbumAndPhotos(`${url}albums`).then(result => {
     const startPage = params.offset * params.limit;
-    const albums = result.slice(startPage, startPage + params.limit);
-    return orderArrayByField(albums, params.orderBy);
+    const albumsFilter = filterArrayByTitle(result, params.filter);
+    const albumsPagitation = albumsFilter.slice(startPage, startPage + params.limit);
+    return orderArrayByField(albumsPagitation, params.orderBy);
   });
 
 module.exports = {
