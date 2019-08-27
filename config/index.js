@@ -48,6 +48,9 @@ const config = {
     },
     apiAlbums: {
       url: process.env.API_URL
+    },
+    bcrypt: {
+      salt: process.env.SALT_NUMBER
     }
   }
 };
