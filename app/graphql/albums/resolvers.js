@@ -4,18 +4,10 @@ const config = require('../../../config'),
   { orderArrayByField } = require('../../helpers/orderByFields');
 
 const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums/${params.id}`);
-
 const getAlbumsList = (_, params) =>
   getAlbumAndPhotos(`${url}albums`).then(result => {
-    const albums = [];
     const startPage = params.offset * params.limit;
-    let count = 0;
-    for (let i = startPage; i < result.length; i++) {
-      if (count < params.limit) {
-        albums.push(result[i]);
-        count++;
-      }
-    }
+    const albums = result.slice(startPage, startPage + params.limit);
     return orderArrayByField(albums, params.orderBy);
   });
 
