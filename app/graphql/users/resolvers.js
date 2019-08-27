@@ -7,7 +7,7 @@ const getUsers = (_, params) => User.getAll(params);
 const createUser = (_, { user }) => User.createModel(user);
 const logIn = (_, { credentials }) => {
   // IMPORTANT: Not a functional login, its just for illustrative purposes
-  userLoggedIn.publish(credentials.username);
+  userLoggedIn.publish(credentials.firstName);
   return {
     accessToken: 'example_token',
     refreshToken: 'example_refresh_token',
