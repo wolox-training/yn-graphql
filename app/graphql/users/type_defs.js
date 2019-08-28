@@ -18,7 +18,6 @@ const customTypes = gql`
   type User {
     firstName: String!
     lastName: String!
-    username: String!
     email: String!
     password: String!
     id: ID!
@@ -34,7 +33,6 @@ const inputTypes = gql`
   input UserInput {
     firstName: String!
     lastName: String!
-    username: String!
     email: String!
     password: String!
   }
