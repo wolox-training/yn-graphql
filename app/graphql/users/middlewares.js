@@ -1,12 +1,8 @@
 const logger = require('../../logger'),
   yup = require('yup'),
-  { user: User } = require('../../models'),
-  errors = require('../../errors');
-
-const regexEmail = new RegExp(
-  /^(([^<>\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@wolox.(co|com|com.ar)\s*$/
-);
-const regexAlphanumeric = new RegExp(/^[a-zA-Z0-9_]*$/);
+  errors = require('../../errors'),
+  { regexEmail, regexAlphanumeric } = require('../../helpers/regex'),
+  { userAlreadyExists } = require('../../services/usersDataBase');
 
 const schema = yup.object().shape({
   password: yup
@@ -28,22 +24,14 @@ const createUser = async (resolve, root, args) => {
     logger.err(err.message);
     throw errors.signUpError(err.message);
   }
-  const { email } = args.user;
-
-  const userAlreadyExists = await User.findAndCountAll({
-    where: { email },
-    select: ['id']
-  });
-
-  if (userAlreadyExists.count === 1) {
+  const userExists = await userAlreadyExists(args.use.email);
+  if (userExists.count === 1) {
     throw errors.dataBaseError('User already exists');
   }
-
   return resolve(root, args);
 };
 
 module.exports = {
-  // Here you add all the middlewares for the mutations, queries or field resolvers if you have any
   Mutation: {
     createUser
   },
