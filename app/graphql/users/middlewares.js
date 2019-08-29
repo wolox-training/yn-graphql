@@ -21,7 +21,7 @@ const createUser = async (resolve, root, args) => {
   try {
     await schema.validate(args.user, { abortEarly: false });
   } catch (err) {
-    logger.err(err.message);
+    logger.error(err.message);
     throw errors.signUpError(err.message);
   }
   const userExists = await userAlreadyExists(args.use.email);
