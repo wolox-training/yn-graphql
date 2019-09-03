@@ -1,13 +1,23 @@
-const logger = require('../../logger');
+const logger = require('../../logger'),
+  errors = require('../../errors'),
+  { userAlreadyExists } = require('../../services/usersDataBase'),
+  { schemaSignUp } = require('../../helpers/schemasYup');
 
-const createUser = (resolve, root, args) => {
-  logger.info("Middleware for 'createUser' mutation");
-  // Add different actions that you want to be executed before your resolver, i.e: input validation or caching
+const createUser = async (resolve, root, args) => {
+  try {
+    await schemaSignUp.validate(args.user, { abortEarly: false });
+  } catch (err) {
+    logger.error(err.message);
+    throw errors.signUpError(err.message);
+  }
+  const userExists = await userAlreadyExists(args.user.email);
+  if (userExists !== null) {
+    throw errors.dataBaseError('User already exists');
+  }
   return resolve(root, args);
 };
 
 module.exports = {
-  // Here you add all the middlewares for the mutations, queries or field resolvers if you have any
   Mutation: {
     createUser
   },
