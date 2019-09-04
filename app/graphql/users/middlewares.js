@@ -7,8 +7,8 @@ const createUser = async (resolve, root, args) => {
   try {
     await schemaSignUp.validate(args.user, { abortEarly: false });
   } catch (err) {
-    logger.error(err.message);
-    throw errors.signUpError(err.message);
+    logger.error(err.errors);
+    throw errors.signUpError(err.errors);
   }
   const userExists = await userAlreadyExists(args.user.email);
   if (userExists !== null) {
