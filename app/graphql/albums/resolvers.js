@@ -4,7 +4,7 @@ const config = require('../../../config'),
   { orderArrayByField, filterArrayByField } = require('../../helpers/arraysFields'),
   { filterTitleAlbum } = require('../../constants/albumsConstants');
 
-const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums/${params.id}`);
+const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums?id=${params.id}`);
 const getAlbumsList = (_, params) =>
   getAlbumAndPhotos(`${url}albums`).then(result => {
     const startPage = params.offset * params.limit;

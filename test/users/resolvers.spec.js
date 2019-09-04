@@ -11,7 +11,6 @@ describe('users', () => {
           expect(res.dataValues).toHaveProperty('firstName');
           expect(res.dataValues).toHaveProperty('lastName');
           expect(res.dataValues).toHaveProperty('email');
-          expect(res.dataValues).toHaveProperty('username');
           expect(res.dataValues).toHaveProperty('password');
           expect(res.dataValues).toHaveProperty('updatedAt');
           expect(res.dataValues).toHaveProperty('createdAt');
@@ -19,10 +18,12 @@ describe('users', () => {
       });
 
       it('should fail to create an user with malformed parameters', () => {
-        mutations.createUser({}, { user: { a: 'b' } }).catch(err => {
-          expect(typeof err.errors).toBe('object');
-          expect(err.errors).toHaveLength();
-        });
+        mutations
+          .createUser({}, { user: { firstName: 'a', lastName: 'c', email: 'nada@nada.com', password: 'b' } })
+          .catch(err => {
+            expect(typeof err.errors).toBe('object');
+            expect(err.errors).toHaveLength();
+          });
       });
     });
   });
