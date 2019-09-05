@@ -1,4 +1,4 @@
-exports.photo = [
+exports.photos = [
   {
     albumId: 1,
     id: 1,
@@ -8,13 +8,11 @@ exports.photo = [
   }
 ];
 
-exports.album = [
-  {
-    userId: 1,
-    id: 1,
-    title: 'Prueba de albums'
-  }
-];
+exports.album = {
+  userId: 1,
+  id: 1,
+  title: 'Prueba de albums'
+};
 exports.albumList = [
   {
     userId: 1,
@@ -28,17 +26,21 @@ exports.albumList = [
   }
 ];
 
-exports.albumTest = [
-  {
-    title: 'Prueba de albums',
-    artist: 1,
-    photos: exports.photo
-  }
-];
+exports.albumTest = {
+  title: 'Prueba de albums',
+  artist: 1,
+  photos: exports.photos
+};
+
 exports.albumsTest = [
   {
     title: 'Prueba de albums',
     artist: 1,
-    photos: exports.photo
+    photos: exports.photos
+  },
+  {
+    artist: 2,
+    title: 'Prueba de albums 2',
+    photos: exports.photos
   }
 ];

@@ -1,6 +1,6 @@
 const { query } = require('../server.spec'),
   { getAlbum, getAlbums } = require('./graphql'),
-  { albumTest } = require('../fixture/albumPhotos');
+  { albumTest, albumsTest } = require('../fixture/albumPhotos');
 
 describe('albums', () => {
   describe('queries', () => {
@@ -13,5 +13,6 @@ describe('albums', () => {
   it('should get all albums', () =>
     query(getAlbums(0, 5, 'title', 'Prueba')).then(res => {
       expect(res.data.albums).toHaveLength(2);
+      expect(res.data.albums).toEqual(albumsTest);
     }));
 });

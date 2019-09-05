@@ -17,12 +17,13 @@ describe('users', () => {
         });
       });
 
-      it('should fail to create an user with malformed parameters', () => {
-        mutations
-          .createUser({}, { user: { firstName: 'a', lastName: 'c', email: 'nada@nada.com', password: 'b' } })
+      it('should fail creating an user that already exist in database', async () => {
+        const user = await userFactory.build();
+        return mutations
+          .createUser({}, { user: user.dataValues })
+          .then(() => mutations.createUser({}, { user: user.dataValues }))
           .catch(err => {
-            expect(typeof err.errors).toBe('object');
-            expect(err.errors).toHaveLength();
+            expect(err.extensions.code).toBe(503);
           });
       });
     });

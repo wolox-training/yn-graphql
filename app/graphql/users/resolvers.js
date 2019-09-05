@@ -15,7 +15,7 @@ const createUser = (_, { user }) =>
     })
     .catch(err => {
       logger.error(`Could not create user: ${user.firstName}`);
-      throw errors.dataBaseError(err.message);
+      throw errors.dataBaseError(err.errors);
     });
 
 const logIn = (_, { credentials }) => {

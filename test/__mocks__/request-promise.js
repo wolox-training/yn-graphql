@@ -1,13 +1,13 @@
-const { photo, album, albumList } = require('../fixture/albumPhotos');
+const { photos, album, albumList } = require('../fixture/albumPhotos');
 
 module.exports = jest.fn(param => {
-  const splitUri = param.uri.split('?')[1];
-  const photos = param.uri.search('photos');
-  if (photos === -1) {
-    if (splitUri !== undefined) {
-      return Promise.resolve(album);
+  const search = param.uri.search('photos');
+  if (search === -1) {
+    const splitUri = param.uri.split('/');
+    if (isNaN(parseInt(splitUri[4]))) {
+      return Promise.resolve(albumList);
     }
-    return Promise.resolve(albumList);
+    return Promise.resolve(album);
   }
-  return Promise.resolve(photo);
+  return Promise.resolve(photos);
 });
