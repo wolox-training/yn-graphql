@@ -43,6 +43,7 @@ module.exports = {
     }
   },
   User: {
-    email: root => root.email
+    email: root => root.email,
+    name: root => `${root.firstName} ${root.lastName}`
   }
 };

@@ -3,6 +3,7 @@ const { gql } = require('apollo-server');
 const getUser = id => gql`
     query {
         user(id: ${id}) {
+          name,
           firstName,
           lastName,
           email

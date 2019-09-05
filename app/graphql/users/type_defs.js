@@ -1,4 +1,6 @@
 const { gql } = require('apollo-server');
+// { makeExecutableSchema } = require('graphql-tools'),
+// { DeprecatedDirective } = require('graphql-directive-deprecated');
 
 const rootTypes = gql`
   extend type Query {
@@ -16,8 +18,9 @@ const rootTypes = gql`
 
 const customTypes = gql`
   type User {
-    firstName: String!
-    lastName: String!
+    name: String!
+    firstName: String @deprecated
+    lastName: String! @deprecated
     email: String!
     password: String!
     id: ID!
