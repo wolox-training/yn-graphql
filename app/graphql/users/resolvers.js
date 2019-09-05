@@ -19,6 +19,7 @@ const createUser = (_, { user }) =>
     });
 
 const logIn = (_, { credentials }) => {
+  console.log(credentials);
   // IMPORTANT: Not a functional login, its just for illustrative purposes
   userLoggedIn.publish(credentials.firstName);
   return {

@@ -13,3 +13,12 @@ exports.schemaSignUp = yup.object().shape({
     .email('email is not valid')
     .matches(regexEmail, 'email is not valid or does not belong to the wolox domain')
 });
+
+exports.schemaSignIn = yup.object().shape({
+  password: yup.string().required('password is required'),
+  email: yup
+    .string()
+    .required('email is required')
+    .email('email is not valid')
+    .matches(regexEmail, 'email is not valid or does not belong to the wolox domain')
+});

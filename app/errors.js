@@ -6,10 +6,12 @@ const DEFAULT_ERROR = 500,
   SERVICE_UNAVAILABLE = 503,
   BAD_REQUEST = 400,
   DATABASE_ERROR = 503,
-  SIGN_UP_ERROR = 400;
+  SIGN_UP_ERROR = 400,
+  SIGN_IN_ERROR = 401;
 
 exports.defaultError = message => createError(message, DEFAULT_ERROR);
 exports.badRequest = message => createError(message, BAD_REQUEST);
 exports.serviceUnavailable = message => createError(message, SERVICE_UNAVAILABLE);
 exports.dataBaseError = message => createError(message, DATABASE_ERROR);
 exports.signUpError = message => createError(message, SIGN_UP_ERROR);
+exports.signInError = message => createError(message, SIGN_IN_ERROR);
