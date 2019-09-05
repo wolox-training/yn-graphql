@@ -19,8 +19,8 @@ const rootTypes = gql`
 const customTypes = gql`
   type User {
     name: String!
-    firstName: String @deprecated
-    lastName: String! @deprecated
+    firstName: String @deprecated(reason: "Field is deprecated!")
+    lastName: String! @deprecated(reason: "Field is deprecated!")
     email: String!
     password: String!
     id: ID!
