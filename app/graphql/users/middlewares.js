@@ -23,14 +23,16 @@ const logIn = async (resolve, root, args) => {
     await schemaSignIn.validate(args.credentials, { abortEarly: false });
   } catch (err) {
     logger.error(err.errors);
-    throw errors.signUpError(err.errors);
+    throw errors.signInError(err.errors);
   }
-  const result = await findOneUser(args.user.email);
-  const compare = await bcrypt.compare(args.user.password, result.password);
+  const result = await findOneUser(args.credentials.email);
+  if (result === null) {
+    throw errors.signInError('user does not exist');
+  }
+  const compare = await bcrypt.compare(args.credentials.password, result.password);
   if (compare !== true) {
     throw errors.signInError('email or password incorrect');
   }
-
   return resolve(root, args);
 };
 

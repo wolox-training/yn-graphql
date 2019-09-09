@@ -29,7 +29,7 @@ const customTypes = gql`
   }
   type AccessToken {
     accessToken: String!
-    refreshToken: String!
+    refreshToken: String
     expiresIn: Int!
   }
 `;

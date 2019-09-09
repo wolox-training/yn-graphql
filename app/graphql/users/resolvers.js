@@ -2,7 +2,10 @@ const { user: User } = require('../../models'),
   { userLoggedIn } = require('../events'),
   { encryptionString } = require('../../helpers/encryption'),
   logger = require('../../logger'),
-  errors = require('../../errors');
+  errors = require('../../errors'),
+  jwt = require('jwt-simple'),
+  config = require('../../../config'),
+  { secret } = config.common.jwt;
 
 const getUser = (_, params) => User.getOne(params);
 const getUsers = (_, params) => User.getAll(params);
@@ -19,13 +22,10 @@ const createUser = (_, { user }) =>
     });
 
 const logIn = (_, { credentials }) => {
-  console.log(credentials);
-  // IMPORTANT: Not a functional login, its just for illustrative purposes
   userLoggedIn.publish(credentials.firstName);
   return {
-    accessToken: 'example_token',
-    refreshToken: 'example_refresh_token',
-    expiresIn: 1565990270
+    accessToken: jwt.encode({ email: credentials.email, expiresAt: Math.floor(Date.now() / 1000) }, secret),
+    expiresIn: Math.floor(Date.now() / 1000)
   };
 };
 

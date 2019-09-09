@@ -4,7 +4,7 @@ const { query } = require('../server.spec'),
 
 describe('users', () => {
   describe('queries', () => {
-    it.only('should get user properly', () =>
+    it('should get user properly', () =>
       userFactory.create().then(user =>
         query(getUser(user.id)).then(res => {
           expect(res.data).toEqual({

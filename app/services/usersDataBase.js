@@ -5,7 +5,7 @@ const { user: User } = require('../models'),
 exports.findOneUser = email =>
   User.findOne({
     where: { email },
-    attributes: ['id']
+    attributes: ['id', 'email', 'password']
   }).catch(err => {
     logger.error(err);
     throw errors.dataBaseError(err.message);
