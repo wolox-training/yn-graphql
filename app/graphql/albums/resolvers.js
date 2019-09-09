@@ -13,10 +13,18 @@ const getAlbumsList = (_, params) =>
     return orderArrayByField(albumsPagitation, params.orderBy);
   });
 
+const buyAlbum = (_, params) => {
+  console.log(params);
+  return params;
+};
+
 module.exports = {
   Query: {
     album: getAlbum,
     albums: getAlbumsList
+  },
+  Mutation: {
+    buyAlbum
   },
   Album: {
     artist: root => root.userId,
