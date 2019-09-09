@@ -1,11 +1,9 @@
 const { user: User } = require('../../models'),
   { userLoggedIn } = require('../events'),
   { encryptionString } = require('../../helpers/encryption'),
+  { encodeToken } = require('../../helpers/token'),
   logger = require('../../logger'),
-  errors = require('../../errors'),
-  jwt = require('jwt-simple'),
-  config = require('../../../config'),
-  { secret } = config.common.jwt;
+  errors = require('../../errors');
 
 const getUser = (_, params) => User.getOne(params);
 const getUsers = (_, params) => User.getAll(params);
@@ -24,7 +22,7 @@ const createUser = (_, { user }) =>
 const logIn = (_, { credentials }) => {
   userLoggedIn.publish(credentials.firstName);
   return {
-    accessToken: jwt.encode({ email: credentials.email, expiresAt: Math.floor(Date.now() / 1000) }, secret),
+    accessToken: encodeToken(credentials.email),
     expiresIn: Math.floor(Date.now() / 1000)
   };
 };

@@ -26,11 +26,11 @@ const logIn = async (resolve, root, args) => {
     throw errors.signInError(err.errors);
   }
   const result = await findOneUser(args.credentials.email);
-  if (result === null) {
+  if (!result) {
     throw errors.signInError('user does not exist');
   }
   const compare = await bcrypt.compare(args.credentials.password, result.password);
-  if (compare !== true) {
+  if (!compare) {
     throw errors.signInError('email or password incorrect');
   }
   return resolve(root, args);
