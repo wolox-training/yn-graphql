@@ -1,6 +1,7 @@
 const { user: User } = require('../../models'),
   { userLoggedIn } = require('../events'),
   { encryptionString } = require('../../helpers/encryption'),
+  { encodeToken } = require('../../helpers/token'),
   logger = require('../../logger'),
   errors = require('../../errors');
 
@@ -19,12 +20,10 @@ const createUser = (_, { user }) =>
     });
 
 const logIn = (_, { credentials }) => {
-  // IMPORTANT: Not a functional login, its just for illustrative purposes
   userLoggedIn.publish(credentials.firstName);
   return {
-    accessToken: 'example_token',
-    refreshToken: 'example_refresh_token',
-    expiresIn: 1565990270
+    accessToken: encodeToken(credentials.email),
+    expiresIn: Math.floor(Date.now() / 1000)
   };
 };
 
@@ -43,6 +42,7 @@ module.exports = {
     }
   },
   User: {
-    email: root => root.email
+    email: root => root.email,
+    name: root => `${root.firstName} ${root.lastName}`
   }
 };

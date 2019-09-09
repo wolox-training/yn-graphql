@@ -2,10 +2,10 @@ const { user: User } = require('../models'),
   logger = require('../logger'),
   errors = require('../errors');
 
-exports.userAlreadyExists = email =>
+exports.findOneUser = email =>
   User.findOne({
     where: { email },
-    attributes: ['id']
+    attributes: ['id', 'email', 'password']
   }).catch(err => {
     logger.error(err);
     throw errors.dataBaseError(err.message);
