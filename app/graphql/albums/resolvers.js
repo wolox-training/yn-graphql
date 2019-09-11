@@ -20,9 +20,9 @@ const getAlbumsList = (_, params) =>
 const buyAlbum = async (_, params, context) => {
   try {
     const data = await validatorBuyAlbums({ ...params, authorization: context.authorization });
-    await Album.createModel(data);
+    const result = await Album.createModel(data);
     logger.info(`the purchase of the album was done correctly: ${data.title}`);
-    return data;
+    return { ...result.dataValues, title: data.title };
   } catch (err) {
     logger.error('the purchase of the album was not made correctly');
     throw err;
