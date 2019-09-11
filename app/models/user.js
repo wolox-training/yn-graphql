@@ -35,5 +35,10 @@ module.exports = (sequelize, DataTypes) => {
 
   User.prototype.updateModel = props => this.update(props);
 
+  User.associate = models => {
+    User.hasMany(models.album, {
+      foreignKey: 'userId'
+    });
+  };
   return User;
 };

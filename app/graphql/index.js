@@ -16,4 +16,7 @@ const schema = makeExecutableSchema({
   resolvers: modules.resolvers
 });
 
-module.exports = applyMiddleware(schema, modules.middlewares);
+module.exports = {
+  schema: applyMiddleware(schema, modules.middlewares),
+  context: ({ req }) => ({ authorization: req.headers.authorization })
+};
