@@ -5,7 +5,8 @@ const config = require('../../../config'),
   { filterTitleAlbum } = require('../../constants/albumsConstants'),
   { album: Album } = require('../../models'),
   logger = require('../../logger'),
-  errors = require('../../errors');
+  { validatorBuyAlbums } = require('./interactors');
+// errors = require('../../errors');
 
 const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums/${params.id}`);
 const getAlbumsList = (_, params) =>
@@ -16,16 +17,17 @@ const getAlbumsList = (_, params) =>
     return orderArrayByField(albumsPagitation, params.orderBy);
   });
 
-const buyAlbum = (_, params) =>
-  Album.createModel(params)
-    .then(() => {
-      logger.info(`the purchase of the album was done correctly: ${params.name}`);
-      return params;
-    })
-    .catch(err => {
-      logger.error(`the purchase of the album was not made correctly: ${params.name}`);
-      throw errors.dataBaseError(err.errors);
-    });
+const buyAlbum = async (_, params, context) => {
+  try {
+    const data = await validatorBuyAlbums({ ...params, authorization: context.authorization });
+    await Album.createModel(data);
+    logger.info(`the purchase of the album was done correctly: ${data.title}`);
+    return data;
+  } catch (err) {
+    logger.error('the purchase of the album was not made correctly');
+    throw err;
+  }
+};
 
 module.exports = {
   Query: {

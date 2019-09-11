@@ -6,9 +6,9 @@ const errors = require('../../errors'),
   { findOneUser } = require('../../services/usersDataBase'),
   { findOneAlbum } = require('../../services/albumsDataBase');
 
-const buyAlbum = async (resolve, root, args, context) => {
+exports.validatorBuyAlbums = async args => {
   const { albumId } = args,
-    token = decodedToken(context.authorization),
+    token = decodedToken(args.authorization),
     source = `${url}albums/${albumId}`,
     user = await findOneUser(token.email),
     albums = await getAlbumAndPhotos(source);
@@ -22,12 +22,5 @@ const buyAlbum = async (resolve, root, args, context) => {
   if (purchasedAlbum) {
     throw errors.buyAlbumsError('you cannot buy this album again');
   }
-  return resolve(root, { albumId, title: albums.title, userId: user.id });
-};
-
-module.exports = {
-  Mutation: {
-    buyAlbum
-  },
-  Album: {}
+  return { albumId, title: albums.title, userId: user.id };
 };
