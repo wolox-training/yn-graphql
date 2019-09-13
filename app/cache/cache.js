@@ -1,12 +1,7 @@
 const { redis } = require('../cache/redis');
 
-exports.searchCache = (resolve, root, args, file) => {
-  let keyValue = null;
-  if (file === 'albums') {
-    keyValue = args.offset + args.limit + args.orderBy + args.filter;
-  }
-  keyValue = `album${args.id}`;
-  return redis.get(keyValue).then(cache => {
+exports.searchCache = (resolve, root, args, keyValue) =>
+  redis.get(keyValue).then(cache => {
     if (cache) {
       const convertCache = JSON.parse(cache);
       return convertCache;
@@ -16,4 +11,3 @@ exports.searchCache = (resolve, root, args, file) => {
       return result;
     });
   });
-};
