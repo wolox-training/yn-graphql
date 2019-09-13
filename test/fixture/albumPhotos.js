@@ -39,8 +39,8 @@ exports.albumsTest = [
     photos: exports.photos
   },
   {
-    artist: 2,
     title: 'Prueba de albums 2',
+    artist: 2,
     photos: exports.photos
   }
 ];

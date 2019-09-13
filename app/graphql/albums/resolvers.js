@@ -6,7 +6,6 @@ const config = require('../../../config'),
   { album: Album } = require('../../models'),
   logger = require('../../logger'),
   { validatorBuyAlbums } = require('./interactors');
-// errors = require('../../errors');
 
 const getAlbum = (_, params) => getAlbumAndPhotos(`${url}albums/${params.id}`);
 const getAlbumsList = (_, params) =>

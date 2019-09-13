@@ -54,6 +54,10 @@ const config = {
     },
     jwt: {
       secret: process.env.SECRET
+    },
+    cacheRedis: {
+      port: process.env.PORT_REDIS,
+      host: process.env.HOST_REDIS
     }
   }
 };
