@@ -13,6 +13,9 @@ const rootTypes = gql`
   extend type Mutation {
     buyAlbum(albumId: Int!): buyAlbums!
   }
+  extend type Mutation {
+    buyAlbum(albumId: Int!): buyAlbums!
+  }
 `;
 
 const customTypes = gql`
